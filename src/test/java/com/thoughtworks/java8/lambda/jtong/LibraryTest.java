@@ -6,13 +6,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.function.BiFunction;
-import java.util.function.BiPredicate;
-import java.util.function.Function;
-import java.util.function.Predicate;
+import java.io.PrintStream;
+import java.util.function.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 
 @DisplayName("java 8 lambda demo suite")
@@ -104,10 +104,23 @@ class LibraryTest {
     @Test
     @DisplayName("BiFunction need 3 generic params, 2 for argument, 1 for result")
     void testBiFunction() {
-        BiFunction<String, String, String> love = (personA, personB) ->  personA +"爱上了" + personB ;
+        BiFunction<String, String, String> love = (personA, personB) ->  personA +"爱上了" + personB;
 
         assertThat(love.apply("阿珍", "阿强"), is("阿珍爱上了阿强"));
     }
 
+
+    @Test
+    @DisplayName("Consumber return northing, but it really called")
+    void testConsumner() {
+        final PrintStream mockStream = mock(PrintStream.class);
+        Consumer<Player> sayHi = (player) ->  {
+            mockStream.println("Hi, " + player.getName());
+        };
+        Player zhangsan = new Player("张三", 100, 10);
+        sayHi.accept(zhangsan);
+
+        verify(mockStream).println("Hi, 张三");
+    }
 
 }
