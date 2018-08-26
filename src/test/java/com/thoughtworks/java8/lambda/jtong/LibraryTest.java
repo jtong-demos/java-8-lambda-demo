@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.function.BiPredicate;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -57,6 +58,15 @@ class LibraryTest {
         assertThat(AP_of_playerA_bigger_than_playerB.test(zhangsan, lisi), is(true));
     }
 
+
+    @Test
+    @DisplayName("Function need two generic params, 1 for argument, 1 for result")
+    void testFunction() {
+        Function<Player, String> introduceMySelf = (player) ->  "姓名："+player.getName() +"，HP：" + player.getHp() ;
+        Player zhangsan = new Player("张三", 100, 10);
+
+        assertThat(introduceMySelf.apply(zhangsan), is("姓名：张三，HP：100"));
+    }
 
 
 }
