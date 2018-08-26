@@ -68,5 +68,14 @@ class LibraryTest {
         assertThat(introduceMySelf.apply(zhangsan), is("姓名：张三，HP：100"));
     }
 
+    @Test
+    @DisplayName("Function identity do nothing")
+    void testFunction_identity() {
+        Function<Player,Player> doNothing = Function.identity() ;
+        Player zhangsan = new Player("张三", 100, 10);
+
+        assertThat(doNothing.apply(zhangsan) == zhangsan, is(true));
+    }
+
 
 }
