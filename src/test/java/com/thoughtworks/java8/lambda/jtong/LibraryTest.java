@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -79,7 +80,7 @@ class LibraryTest {
 
 
     @Test
-    @DisplayName("Function compose combine before")
+    @DisplayName("Function compose combine before, of course only combine Function")
     void testFunction_compose() {
         Function<Integer,Integer> increase = i -> i+1;
         Function<Integer, Integer> doubleIt = i -> i*2;
@@ -97,6 +98,15 @@ class LibraryTest {
 
 
         assertThat(increase.andThen(doubleIt).apply(1), is(4));//(1+1)*2
+    }
+
+
+    @Test
+    @DisplayName("BiFunction need 3 generic params, 2 for argument, 1 for result")
+    void testBiFunction() {
+        BiFunction<String, String, String> love = (personA, personB) ->  personA +"爱上了" + personB ;
+
+        assertThat(love.apply("阿珍", "阿强"), is("阿珍爱上了阿强"));
     }
 
 
