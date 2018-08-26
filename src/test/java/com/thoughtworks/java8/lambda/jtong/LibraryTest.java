@@ -31,6 +31,20 @@ class LibraryTest {
         Player zhangsan = new Player("张三", 100, 10);
 
         assertThat(playerIsAlive.test(zhangsan), is(true));
+        assertThat(playerIsAlive.negate().test(zhangsan), is(false));
+    }
+
+    @Test
+    @DisplayName("Predicate can only 'and' Predicate")
+    void testPredicateAnd() {
+        Predicate<Player> playerIsAlive = p -> p.getHp() > 0;
+        Predicate<Player> playerHasName = p -> p.getName() != null;
+        Player zhangsan = new Player("张三", 100, 10);
+
+        Player johnDoe = new Player(null, 100, 5);
+
+        assertThat(playerIsAlive.and(playerHasName).test(zhangsan), is(true));
+        assertThat(playerIsAlive.and(playerHasName).test(johnDoe), is(false));
     }
 
     @Test
@@ -42,6 +56,7 @@ class LibraryTest {
 
         assertThat(AP_of_playerA_bigger_than_playerB.test(zhangsan, lisi), is(true));
     }
+
 
 
 }

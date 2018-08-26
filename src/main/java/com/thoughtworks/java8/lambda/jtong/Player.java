@@ -21,4 +21,8 @@ public class Player {
     public int getAp() {
         return ap;
     }
+
+    public String getName() {
+        return name;
+    }
 }
