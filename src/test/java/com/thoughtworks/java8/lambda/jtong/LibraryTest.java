@@ -78,4 +78,26 @@ class LibraryTest {
     }
 
 
+    @Test
+    @DisplayName("Function compose combine before")
+    void testFunction_compose() {
+        Function<Integer,Integer> increase = i -> i+1;
+        Function<Integer, Integer> doubleIt = i -> i*2;
+
+
+        assertThat(increase.compose(doubleIt).apply(1), is(3));//(1*2)+1
+    }
+
+
+    @Test
+    @DisplayName("Function andThen combine after")
+    void testFunction_andThen() {
+        Function<Integer,Integer> increase = i -> i+1;
+        Function<Integer, Integer> doubleIt = i -> i*2;
+
+
+        assertThat(increase.andThen(doubleIt).apply(1), is(4));//(1+1)*2
+    }
+
+
 }
