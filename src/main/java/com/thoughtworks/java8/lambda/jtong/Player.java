@@ -11,6 +11,7 @@ public class Player {
         this.ap = ap;
     }
 
+
     private int hp;
     private int ap;
 

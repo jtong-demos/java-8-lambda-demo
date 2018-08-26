@@ -7,6 +7,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 import java.util.function.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -122,5 +125,26 @@ class LibraryTest {
 
         verify(mockStream).println("Hi, 张三");
     }
+
+
+    @Test
+    @DisplayName("Supplier is a wired getter without class, but also can be very cool")
+    void testSupplier() {
+        Player zhangsan = new Player("张三", 100, 10);
+        Supplier<Player> getZhangsan = ()-> zhangsan;
+        assertThat(getZhangsan.get() == zhangsan, is(true));
+
+
+        Supplier<Map> factory = HashMap::new;
+        Map aMap = factory.get();
+        assertThat(aMap instanceof HashMap, is(true));
+
+        Supplier<Double> random = () -> new Random().nextDouble();
+
+        random.get();
+    }
+
+
+    
 
 }
